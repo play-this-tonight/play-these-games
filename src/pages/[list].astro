@@ -1,0 +1,20 @@
+---
+import { buildTop5Lists } from '../utils/managePages';
+import GameComponent from '../components/game.astro';
+
+export async function getStaticPaths() {
+  const paths = Astro.fetchContent('../gameLists/*.md');
+  
+  return buildTop5Lists(paths);
+}
+
+const { params : { list } } = Astro.request;
+const { props } = Astro;
+---
+<body>
+  <h1>{props.name}</h1>
+
+  <ol>
+    {props.top5.map((name) => <GameComponent fileName={name} />) }  
+  </ol>
+</body>

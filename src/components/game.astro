@@ -1,0 +1,24 @@
+---
+import { Markdown } from 'astro/components';
+import { matchFileName } from '../utils/managePages';
+
+const { fileName } = Astro.props;
+
+console.log(fileName);
+
+const filePaths = Astro.fetchContent('../games/tangle-tower.md');
+
+/**
+  This is annoying at the moment, but it doesn't look like
+  Astro's fetchContent functionality allows you to dynamically 
+  pass the markdown file you want to select.
+ */
+const game = filePaths.find((filePath) => matchFileName(fileName, filePath));
+
+console.log(game.content);
+---
+<h3>This isn't working</h3>
+
+<Markdown>
+  { game.content.html }
+</Markdown>

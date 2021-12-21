@@ -9,6 +9,7 @@ If I do something like add the igdb id, it could automatically fetch and select 
   - Honestly though, this could just be in the igdb api
 - Blurbs about why it belongs in the list (Probably the most impactful part here)
 - Create contribution instructions
+- Add the introductory page
 
 ### Components of a New Game
 

@@ -1,0 +1,32 @@
+---
+import { Markdown } from 'astro/components';
+import { getFileName } from '../utils/managePages';
+
+const { content } = Astro.props;
+
+const title = Astro.request.canonicalURL.pathname.match(/\/games\/([0-9\-A-Za-z]*)\//)[1];
+
+const paths = Astro.fetchContent('../gameLists/*.md');
+
+const pathsItsIn = paths.filter( (path) => { 
+  return path && path['top5'].find(({ fileName }) => fileName === title)
+});
+
+const pathNames = pathsItsIn.map(path => getFileName(path));
+---
+
+<h1>{ content.title }</h1>
+
+<p>Publisher: { content.publisher }</p>
+<img src={`/assets/img/${content.image}`} />
+
+<Markdown>
+  { content.astro.html }
+</Markdown>
+
+<h4>Lists It Shows Up In</h4>
+<p>
+  Add a list of lists this was in. That... should theoretically be doable.
+</p>
+
+{pathNames.map((pathName) => <a href={`/${pathName}`}>{pathName</a>)}

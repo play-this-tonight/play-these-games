@@ -4,21 +4,26 @@ import { matchFileName } from '../utils/managePages';
 
 const { fileName } = Astro.props;
 
-console.log(fileName);
-
-const filePaths = Astro.fetchContent('../games/tangle-tower.md');
-
+const filePaths = Astro.fetchContent('../pages/games/*.md');
 /**
   This is annoying at the moment, but it doesn't look like
   Astro's fetchContent functionality allows you to dynamically 
   pass the markdown file you want to select.
  */
-const game = filePaths.find((filePath) => matchFileName(fileName, filePath));
+const game = filePaths.find((filePath) => matchFileName(fileName.fileName, filePath));
 
-console.log(game.content);
+console.log(game);
 ---
-<h3>This isn't working</h3>
+<h2>{ game.title }</h2>
+
+<p>Publisher: { game.publisher }</p>
+<img src={`/assets/img/${game.image}`} />
 
 <Markdown>
   { game.content.html }
 </Markdown>
+
+<h4>Lists It Shows Up In</h4>
+<p>
+  Add a list of lists this was in. That... should theoretically be doable.
+</p>
